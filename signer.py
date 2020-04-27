@@ -40,7 +40,15 @@ def loadKey(keyPath):
 def digSig(sigKey, string):
 	
 	# TODO: return the signature of the file
-	pass
+		
+	# Need to fist compute the SHA-512 hash of the string
+	dataHash = SHA512.new(string).hexdigest()
+
+	# Now using our SHA-12 hash, let's sign the file using the given private key
+	dataSig = sigKey.sign(dataHash, '')
+
+	# Return the signature of the file
+	return dataSig
 
 ##########################################################
 # Returns the file signature
@@ -57,7 +65,25 @@ def getFileSig(fileName, privKey):
 	# 4. Sign the hash computed in 4. using the digSig() function
 	# you implemented.
 	# 5. Return the signed hash; this is your digital signature
-	pass
+		
+	# Opening the given file
+	with open(fileName, 'r') as targetFile:
+
+		# Read the target file
+		targetFileData = targetFile.read()
+
+		# Compute the SHA-512 hash of the target file
+		dataHash = SHA512.new(targetFileData).hexdigest()
+
+		print "here is the SHA-512 hash ", dataHash
+
+		# Sign the computed has using our digSig() function, using the given private key
+		dataSig = privKey.sign(dataHash, '')
+
+	# return the signed hash (our digital signature)
+	return dataSig
+
+
 	
 ###########################################################
 # Verifies the signature of the file
@@ -89,7 +115,20 @@ def saveSig(fileName, signature):
 	# Get the first value of the tuple, convert it
 	# to a string, and save it to the file (i.e., indicated
 	# by fileName)
-	pass	
+
+	# Convert the signature into a string
+	tupleToStr = ''.join(str(signature) for v in signature)
+
+	try: 
+		# Open the file to write to
+		with open(fileName, 'w') as sigFile:
+			sigFile.write(tupleToStr)
+			sigFile.close()
+	except:
+		print 'Error writing to the target file.'
+		exit(1)
+	
+
 
 ###########################################
 # Loads the signature and converts it into
@@ -104,8 +143,9 @@ def loadSig(fileName):
 	# Open the file, read the signature string, convert it
 	# into an integer, and then put the integer into a single
 	# element tuple
-	
 	pass
+
+	
 	
 #################################################
 # Verifies the signature
@@ -146,12 +186,24 @@ def main():
 
 	# TODO: Load the key using the loadKey() function provided.
 	
+	# Load the key from file
+	key = loadKey(keyFileName)
+	
+
 	# We are signing
 	if mode == "sign":
 		
 		# TODO: 1. Get the file signature
 		#       2. Save the signature to the file
+
+		# Retrieve the file signature
+		inputFileSig = getFileSig(inputFileName, key)
+
+		print 'here is the digital signature (signed hash) ', inputFileSig
 		
+		# Save the signature to the inputFile
+		saveSig(sigFileName, inputFileSig)
+
 		print "Signature saved to file ", sigFileName
 
 	# We are verifying the signature
