@@ -15,7 +15,7 @@ Theresa Tanubrata - theresatanubrata123@csu.fullerton.edu
 - testfile.txt
 
 Here is the template to use when running the commands in the terminal:
-> python signer.py <KEY FILE NAME> <SIGNATURE FILE NAME> <INPUT FILE NAME> <MODE>
+```python signer.py <KEY FILE NAME> <SIGNATURE FILE NAME> <INPUT FILE NAME> <MODE>```
 
 To use our example file 'testfile.txt' enter in the following commands:
 
