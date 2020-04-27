@@ -10,4 +10,4 @@ myData = "hello world"
 # Compute the SHA-512 hash of the data
 dataHash = SHA512.new(myData).hexdigest()
 
-print dataHash
+print(dataHash)
