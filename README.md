@@ -5,6 +5,8 @@ Christopher Phongsa - cphongsa@csu.fullerton.edu
 
 Theresa Tanubrata - theresatanubrata123@csu.fullerton.edu
 
+Julian Coronado - juliancoronado@csu.fullerton.edu
+
 
 ## Instructions to run the program
 
